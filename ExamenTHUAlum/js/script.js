@@ -7,7 +7,7 @@ let cochesOriginales = [...coches];
 function main() {
 
     function cargarDatos() {
-        localStorage.setItem('coches', JSON.stringify(coches))
+        localStorage.setItem('coches', JSON.stringify(coches));
         mostrarDatos(coches);
     }
 
@@ -17,6 +17,7 @@ function main() {
         while (contenedor.firstChild) {
             contenedor.removeChild(contenedor.firstChild);
         }
+
         datosCoches.forEach(coche =>{
 
             const divPrincipal = document.createElement('div');
@@ -31,7 +32,7 @@ function main() {
             //Nombre
             const h2 = document.createElement('h2');
             h2.classList.add('card-title');
-            h2.appendChild(document.createTextNode(coche.marca));
+            h2.appendChild(document.createTextNode('MANEL'));
             divSecundari.appendChild(h2);
 
             //Precio
@@ -52,7 +53,7 @@ function main() {
 
             const h2Precio = document.createElement('h2');
             h2Precio.classList.add('font-weight-bold');
-            h2.appendChild(document.createTextNode(coche.precio));
+            h2Precio.appendChild(document.createTextNode(coche.precio));
             divPrecio2.appendChild(h2Precio);
 
             //Atributos
@@ -116,7 +117,7 @@ function main() {
             divKilometros2.classList.add('text-center');
             divRow.appendChild(divKilometros2);
             const strongKilometros = document.createElement('strong');
-            strongAño.appendChild(document.createTextNode(coche.km));
+            strongKilometros.appendChild(document.createTextNode(coche.km));
             divKilometros2.appendChild(strongKilometros);
 
             const divCambio2 = document.createElement('div');
@@ -135,7 +136,7 @@ function main() {
             divRow.appendChild(divCombustible2);
             const strongCombustible = document.createElement('strong');
             strongCombustible.appendChild(document.createTextNode(coche.combustible));
-            divCambio2.appendChild(strongCombustible);
+            divCombustible2.appendChild(strongCombustible);
 
             const aBton = document.createElement('a');
             aBton.classList.add('btn');
@@ -164,13 +165,52 @@ function main() {
         mostrarDatos(cochesOriginales);
     }
 
+    function rellenarAños() {
+        const añoDesde = document.getElementById('anyoDesde');
+        const añoHasta = document.getElementById('anyoHasta');
+        const añoActual = new Date().getFullYear();
+
+        for (let i = 2010; i <= añoActual; i++) {
+            const optionDesde = document.createElement('option');
+            optionDesde.value = i;
+            optionDesde.appendChild(document.createTextNode(i));  // Usamos createTextNode
+            añoDesde.appendChild(optionDesde);
+
+
+        }
+
+        for (let i = añoActual; i >= 2010; i--) {
+            const optionHasta = document.createElement('option');
+            optionHasta.value = i;
+            optionHasta.appendChild(document.createTextNode(i));  // Usamos createTextNode
+            añoHasta.appendChild(optionHasta);
+        }
+
+    }
+
+    function eliminarFiltros() {
+        // Eliminar los filtros de los campos
+        document.getElementById('marcaModelo').value = ''; 
+        document.getElementById('anyoDesde').value = '';  
+        document.getElementById('anyoHasta').value = '';  
+
+        if (cochesOrdenados.length > 0) {
+            mostrarDatos(cochesOrdenados); 
+        } else {
+            mostrarDatos(cochesOriginales); 
+        }
+
+    }
+
     function prepararEvents() {
         document.querySelector('#precioAlto').addEventListener('click', () => ordenarPorPrecio('ascendente'));
         document.querySelector('#precioBajo').addEventListener('click', () => ordenarPorPrecio('descendente'));
         document.querySelector('#relevancia').addEventListener('click', restaurarListado);
-
+        document.querySelector('#eliminarFiltro').addEventListener('click', eliminarFiltros);
     }
+
     cargarDatos();
     prepararEvents();
+    rellenarAños();
 
 }
