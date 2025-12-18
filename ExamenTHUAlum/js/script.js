@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", main);
-let coches = [data.cars];
+let coches = data.cars;
 let cochesGuardados = JSON.parse(localStorage.getItem('coches'));
 let cochesOrdenados = [...coches];
 let cochesOriginales = [...coches];
@@ -18,8 +18,9 @@ function main() {
             contenedor.removeChild(contenedor.firstChild);
         }
 
-        datosCoches.forEach(coche =>{
 
+        datosCoches.forEach((coche) =>{
+            
             const divPrincipal = document.createElement('div');
             divPrincipal.classList.add('card');
             divPrincipal.classList.add('mb-4');
