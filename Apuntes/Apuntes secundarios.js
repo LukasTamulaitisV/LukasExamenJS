@@ -94,7 +94,7 @@ function pintarLlistat(arrayDades) {
     while (contenidor.firstChild) {
         contenidor.removeChild(contenidor.firstChild);
     }
-
+    
     // Ara jo recórrec totes les dades
     arrayDades.forEach(function (element) {
         // Jo cree el contenidor principal de cada item

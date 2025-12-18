@@ -1,12 +1,14 @@
 document.addEventListener("DOMContentLoaded", main);
 let coches = [data.cars];
-let cochesOrdenados = [...cochesGuardados];
+let cochesGuardados = JSON.parse(localStorage.getItem('coches'));
+let cochesOrdenados = [...coches];
+let cochesOriginales = [...coches];
 
 function main() {
-    
+
     function cargarDatos() {
         localStorage.setItem('coches', JSON.stringify(coches))
-         mostrarDatos(coches);
+        mostrarDatos(coches);
     }
 
     function mostrarDatos(datosCoches) {
@@ -15,8 +17,7 @@ function main() {
         while (contenedor.firstChild) {
             contenedor.removeChild(contenedor.firstChild);
         }
-
-        datosCoches.forEach(coche => {
+        datosCoches.forEach(coche =>{
 
             const divPrincipal = document.createElement('div');
             divPrincipal.classList.add('card');
@@ -67,7 +68,7 @@ function main() {
             divAño.classList.add('border-dark');
             divAño.appendChild(document.createTextNode('Año'));
             divRow.appendChild(divAño);
-            
+
             const divKilometros = document.createElement('div');
             divKilometros.classList.add('col');
             divKilometros.classList.add('p-3');
@@ -141,21 +142,18 @@ function main() {
             aBton.classList.add('btn-primary');
             aBton.classList.add('m-3');
             aBton.appendChild(document.createTextNode('Reservar'));
-
-
-
         });
     }
 
     function ordenarPorPrecio(orden) {
-        const tbody = document.querySelector("#contenedorCoches tbody");
+        const contenedor = document.getElementById("listado");
 
         // Limpiar la tabla antes de volver a cargar los datos ordenados
-        while (tbody.firstChild) {
-            tbody.removeChild(tbody.firstChild);
+        while (contenedor.firstChild) {
+            contenedor.removeChild(contenedor.firstChild);
         }
 
-        const cochesOrdenados = cochesGuardados.sort((a, b) => {
+        const cochesOrdenados = coches.sort((a, b) => {
             return orden === 'ascendente' ? b.precio - a.precio : a.precio - b.precio;
         });
 
@@ -166,10 +164,10 @@ function main() {
         mostrarDatos(cochesOriginales);
     }
 
-     function prepararEvents() {
-        document.querySelector('#sortAsc').addEventListener('click', () => ordenarPorPrecio('ascendente'));
-        document.querySelector('#sortDesc').addEventListener('click', () => ordenarPorPrecio('descendente'));
-        document.querySelector('#sortRel').addEventListener('click', restaurarListado);
+    function prepararEvents() {
+        document.querySelector('#precioAlto').addEventListener('click', () => ordenarPorPrecio('ascendente'));
+        document.querySelector('#precioBajo').addEventListener('click', () => ordenarPorPrecio('descendente'));
+        document.querySelector('#relevancia').addEventListener('click', restaurarListado);
 
     }
     cargarDatos();

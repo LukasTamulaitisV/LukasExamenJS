@@ -535,6 +535,7 @@ function main() {
 
         // Actualizar la vista
         mostrarDatos(cochesGuardados);
+        
 
         // Regenerar autocomplete con nuevos datos
         generarAutocomplete(cochesGuardados);
