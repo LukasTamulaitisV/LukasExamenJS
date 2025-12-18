@@ -168,6 +168,15 @@ function main() {
             return orden === 'ascendente' ? b.precio - a.precio : a.precio - b.precio;
         });
 
+
+        /**
+         * const copia = [...coches]; // Crear copia
+            copia.sort((a, b) => {
+             return orden === 'ascendente' ? a.precio - b.precio : b.precio - a.precio;
+            });
+            mostrarDatos(copia)
+        */
+
         mostrarDatos(cochesOrdenados);
     }
 
