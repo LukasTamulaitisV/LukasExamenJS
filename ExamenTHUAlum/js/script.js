@@ -32,7 +32,7 @@ function main() {
             //Nombre
             const h2 = document.createElement('h2');
             h2.classList.add('card-title');
-            h2.appendChild(document.createTextNode('MANEL'));
+            h2.appendChild(document.createTextNode(coche.marca));
             divSecundari.appendChild(h2);
 
             //Precio
